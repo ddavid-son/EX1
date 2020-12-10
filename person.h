@@ -20,16 +20,17 @@ namespace ELC
         ~person();
 
         // setters
-        bool setname();
-        bool setid();
-        bool setyearofbirth();
-        bool setcounty();
-        bool setname();
+        bool setname(const char *);
+        bool setid(int);
+        bool setyearofbirth(int);
+        // bool setcounty(county);
 
         //getters;
         int getid() const;
         int getyearofbitrth() const;
-        int getcounty() const;
+        //county& getcounty() const;
         const char *getname() const; // const is unneccecey
+
+        void operator=(person &);
     };
 } // namespace ELC

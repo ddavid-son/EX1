@@ -1,12 +1,13 @@
 #pragma once
 #include "registry.h"
+
 namespace ELC
 {
     class county
     {
     private:
         const char *countyname;
-        float voted;      // in percentage
+        float voted;      // in percentage  OR  can be int aswell and add method to evaluate the precentage
         int senum;        // serial number
         int repnum;       // number of representative
         registry nomlist; // nominees
@@ -14,7 +15,6 @@ namespace ELC
                           // all voters in county - not sure this is necessary
 
     public:
-        county() : county(nullptr, 0) {}
         county(const char *name, int repnum, int senum = 0, float voted = 0) : countyname(name), repnum(repnum) {}
         ~county();
 

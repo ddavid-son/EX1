@@ -5,31 +5,30 @@ namespace ELC
     class registry
     {
     private:
-        struct PRS // voters list
+        struct prs // voters list
         {
             person curr;
-            person *next;
+            prs *next;
         };
-        person *head;
-        person *tail;
+        prs *head;
+        prs *tail;
         int len;
 
     public:
-        registry() : head(new person), tail(new person), len(0) {} // new is calling for CTOR of person
+        registry() : head(nullptr), tail(nullptr), len(0) {} // new is calling for CTOR of person
         ~registry();
 
-        void addperson(const person &);
         void addperson(person &);
-        void addpeson(const char *, int, int, int);
+        void addperson(const char *, int, int, county &); // might be county&
 
         //getters
-        person &getHead() const;
-        person &getTail() const;
-        person &getHead();
-        person &getTail();
+        //prs &getHead() const;
+        //prs &getTail() const;
+        prs &getHead();
+        prs &getTail();
         int getlen() const;
 
-        person &getperson(int id);             // IF CHANGE REQUIRED
-        const person &getperson(int id) const; // IF NO CHANGE REQUIRED
+        prs &getperson(int id); // IF CHANGE REQUIRED
+                                // const prs &getperson(int id) const; // IF NO CHANGE REQUIRED
     };
 } // namespace ELC
