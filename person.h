@@ -1,4 +1,6 @@
 #pragma once
+class county;
+
 namespace ELC
 {
     class person
@@ -7,7 +9,7 @@ namespace ELC
         const char *name;
         int id; // maybe better be const char * as well
         int yearofbirth;
-        int county; // might be a diffrent type to represent the county
+        county county; // might be a diffrent type to represent the county
 
     public:
         person() : person(nullptr, 0, 0, -1) {}                                                                               // the (-1) makes sure no person is countyless
