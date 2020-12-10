@@ -12,8 +12,11 @@ namespace ELC
         county county; // might be a diffrent type to represent the county
 
     public:
-        person() : person(nullptr, 0, 0, -1) {}                                                                               // the (-1) makes sure no person is countyless
-        person(const char *name, int id, int YOB, int countynum) : name(name), id(id), yearofbirth(YOB), county(countynum) {} // second ctor
+        person() : person(nullptr, 0, 0, -1) {}                                                         // the (-1) makes sure no person is countyless
+        person(const char *name, int id, int YOB, int countynum) : name(name), id(id), yearofbirth(YOB) // second ctor
+        {
+            // need to find county number - countynum -  and assign it here
+        }
         ~person();
 
         // setters
