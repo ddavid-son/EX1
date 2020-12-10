@@ -1,5 +1,5 @@
 #pragma once
-class county;
+#include "county.h"
 
 namespace ELC
 {
