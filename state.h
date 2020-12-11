@@ -6,20 +6,19 @@ namespace ELC
     class state
     {
     private:
-        struct st
-        {
-            county cn;
-            county *next;
-        };
-        county *head;
-        county *tail;
-        int num_of_counties;
+        county *cntArr;
+        int lsize, psize; // lsize for actual number of items, psize for the arr actual size [ (psize >= lsize) == true ]
+        void resize();
 
     public:
-        state() : head(new county), tail(new county), num_of_counties(0) {} // maight be head/tail( new county() ) instead
+        state() : cntArr(new county[2]), lsize(0), psize(2) {}
+        state(county &cn) : state()
+        {
+            lsize++;
+            cntArr[0] = cn;
+        }
         ~state();
 
-        void addcounty(const county &);
         void addcounty(county &);
         // void addcounty(const char* name, int num_of_reps); // not realy required i think
 

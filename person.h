@@ -1,5 +1,6 @@
 #pragma once
 #include "county.h"
+#include "state.h"
 
 namespace ELC
 {
@@ -9,14 +10,13 @@ namespace ELC
         const char *name;
         int id; // maybe better be const char * as well
         int yearofbirth;
-        county county; // might be a diffrent type to represent the county
+        county &county; // county& OR county
 
     public:
-        person() : person(nullptr, 0, 0, -1) {}                                                         // the (-1) makes sure no person is countyless
-        person(const char *name, int id, int YOB, int countynum) : name(name), id(id), yearofbirth(YOB) // second ctor
+        person(const char *name, int id, int YOB, int countynum) : name(name), id(id), yearofbirth(YOB)
         {
-            // need to find county number - countynum -  and assign it here
-        }
+            // county = st.getcounty(countynum);
+        } // need to find a wa to initiate county... consider including state.h
         ~person();
 
         // setters
