@@ -4,90 +4,148 @@
 #include "registry.h"
 #include "state.h"
 #include "iostream"
+#include "District.h"
 
 using namespace ELC;
 using namespace std;
 
-void menu()
+void addDistrict()
 {
-    bool flag = true;
+	char name[1000];
+	int numRep;
+	cout << "Please enter district name: " << endl;
+	cin >> name;
+	cout << "Please enter the number of representitives: " << endl;
+	cin >> numRep;
 
-    while (flag)
-    {
-        cout << "main menu :" << endl;
-        cout << "1. addcounty. " << endl;
-        cout << "2. addperon. " << endl;
-        cout << "3. addparty. " << endl;
-        cout << "4. print all county " << endl;
-        cout << "5. print registry " << endl;
-        cout << "6. print all parties " << endl;
-        cout << "7. vote " << endl;
-        cout << "8. show results " << endl;
-        cout << "9. Exit " << endl;
-
-        int op;
-        cin >> op;
-
-        switch (op)
-        {
-        case 1:
-            cout << "enter county name and number of reps :" << endl;
-            int repnum;
-            char *name = new char[5];
-            cin >> name;
-            cin >> repnum;
-            // code
-            break;
-        case 2:
-            cout << "enter name , id , year of birth and county number" << endl;
-            int id, YOB, cou_num;
-            char *name = new char[20]; // better in a more accurate function
-            cin >> name;
-            cin >> id >> YOB >> cou_num;
-            // code
-            break;
-        case 3:
-            char *name = new char[5];
-            int id;
-            cout << "enter party name and leader id " << endl;
-            cin >> name;
-            cin >> id;
-            // code
-            break;
-        case 4:
-            cout << "enter new rep id, serial number of the party and county" << endl;
-            int id, party, county;
-            cin >> id >> party >> county;
-            // code
-            break;
-        case 5:
-            //code
-            break;
-        case 6:
-            // code
-            break;
-        case 7:
-            // code
-            break;
-        case 8:
-            // code
-            break;
-        case 9:
-            // code
-            break;
-        case 10:
-            flag = false;
-            break;
-
-        default:
-            break;
-        } // switch
-
-    } // while loop
+	District d(name, numRep);
+	districtList.add(d);
 }
 
+void addCitizen()
+{
+	char name[1000];
+	int ID, birthYear, districtID;
+	cout << "Please enter citizen name: " << endl;
+	cin >> name;
+	cout << "Please enter the citizen's ID: " << endl;
+	cin >> ID;
+	cout << "Please enter the citizen's birthYear: " << endl;
+	cin >> birthYear;
+	cout << "Please enter the citizen's district ID: " << endl;
+	cin >> districtID;
+
+	Citizen c(name, ID, birthYear, districtID);
+	citizenList.add(c); /*to be received as reference*/
+
+}
+
+void addParty()
+{
+	char name[1000];
+	int candidateID;
+	cout << "Please enter the party's name: " << endl;
+	cin >> name;
+	cout << "Please enter the ID of the candidate for head of state: " << endl;
+	cin >> candidateID;
+
+	Party p(name, candidateID);
+	partyList.add(p); /*to be received as reference*/
+}
+
+void addCitizenAsRep()
+{
+	int ID, PartyID, districtID;
+	cout << "Please enter the candidate's ID: " << endl;
+	cin >> ID;
+	cout << "Please enter the party's number: " << endl;
+	cin >> PartyID;
+	cout << "Please enter the district's number: " << endl;
+	cin >> districtID;
+	
+	Citizen& c = citizenList.findCit(ID);
+	Party& p = partyList.party[PartyID - 1]; /*party is an array of parties, PartyID is also used as index (-1 for 0)*/
+
+}
+
+void showAllDistricts()
+{
+	int i;
+	for (i = 0; i < DistrictList.size; i++)
+		cout << DistrictList.dis[i] << endl;
+}
+
+void showAllCitizens()
+{
+	cout << CitizenList << endl; /*Print by ID also possible*/
+}
+
+void showAllParties()
+{
+	int PartyID;
+	for (PartyID = 0; PartyID < PartyList.size; PartyID++)
+		cout << PartyList.party[PartyID] << endl;
+}
+
+void vote()
+{
+	int ID, PartyID;
+	cout << "Please enter the voter's ID: " << endl;
+	cin >> ID;
+	cout << "Please enter the voter's party ID: " << endl;
+	cin >> PartyID;
+
+	Citizen& c = citizenList.find(ID);
+	Party& p = PartyList.party[PartyID - 1];
+	p.vote(c); /*Try to vote, if unsuccesful - tell user*/
+}
+
+void showVotingRes()
+{
+	
+}
+
+void exitFunc()
+{
+	/*Might be unnecessary*/
+	cout << "This voting round has finished, program will now exit" << endl;
+}
+
+
+/***************************************************************/
+/**************THE MAIN MENU AND MAIN FUNCTION******************/
+/***************************************************************/
 int main()
 {
+	cout << "1. Add district" << endl;
+	cout << "2. Add citizen" << endl;
+	cout << "3. Add party" << endl;
+	cout << "4. Add citizen as party representetive" << endl;
+	cout << "5. Show all districts" << endl;
+	cout << "6. Show all citizens" << endl;
+	cout << "7. Show all parties" << endl;
+	cout << "8. Vote" << endl;
+	cout << "9. Show voting results" << endl;
+	cout << "10. Exit program" << endl;
 
-    menu();
+	while (true)
+	{
+		int op;
+		cin >> op;
+
+		switch (op)
+		{
+			case 1: addDistrict(); break;
+			case 2: addCitizen(); break;
+			case 3: addParty(); break;
+			case 4: addCitizenAsRep(); break;
+			case 5: showAllDistricts(); break;
+			case 6: showAllCitizens(); break;
+			case 7: showAllParties(); break;
+			case 8: vote(); break;
+			case 9: showVotingRes(); break;
+			case 10: exitFunc(); return 0;
+			default: cout << "You tried to enter an invalid number for an operation" << endl;
+		}
+	}
 }
