@@ -1,4 +1,5 @@
 #include "state.h"
+#include "iostream" // not working with "ostream"
 
 namespace ELC
 {
@@ -12,6 +13,25 @@ namespace ELC
         }
         cntArr[lsize] = cn;
         lsize++;
+    }
+
+    void state::resize(int newsize)
+    {
+        if (newsize > psize)
+        {
+            county *newarr = new county[newsize];
+            for (int i = 0; i < lsize; i++)
+            {
+                newarr[i] = cntArr[i];
+            }
+            delete[] cntArr;
+            cntArr = newarr;
+            psize = newsize;
+        }
+        else
+        {
+            std::cout << " Error! new size nust be greater then the physical size" << std::endl;
+        }
     }
 
     void state::resize()
