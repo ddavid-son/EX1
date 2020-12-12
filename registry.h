@@ -21,6 +21,9 @@ namespace ELC
         void addperson(person &);
         void addperson(const char *, int, int, county &); // might be county&
 
+        //void sethead(prs);
+        //void settail();
+
         //getters
         //prs &getHead() const;
         //prs &getTail() const;

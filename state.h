@@ -21,7 +21,6 @@ namespace ELC
         ~state();
 
         void addcounty(county &);
-        // void addcounty(const char* name, int num_of_reps); // not realy required i think
 
         const county &getcounty(int); // get by serial number
         int getnum_of_counties() const;
